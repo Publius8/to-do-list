@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="js/jquery-3.6.3.min.js"></script>
+    <title>To Do List</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 40px 20px;
+            background: #0f0c29;
+            background: -webkit-linear-gradient(to right, #24243e, #302b63, #0f0c29);
+            background: linear-gradient(to right, #24243e, #302b63, #0f0c29);
+            color: aliceblue;
+            font-size: 20px;
+            border: 5px solid #C8A2C8;
+            border-radius: 20px;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            box-sizing: border-box;
+        }
+        h1 {
+            text-align: center;
+            font-weight: bold;
+            letter-spacing: 20px;
+            color: aliceblue;
+        }
+        input {
+            width: 100%;
+            color: antiquewhite;
+            border: none;
+            height: 50px;
+            background: none;
+            border-bottom: 5px solid #046307;
+            outline: none;
+            font-size: 30px;
+            box-sizing: border-box;
+        }
+        ::placeholder {
+            color: grey;
+        }
+        h3 {
+            color: green;
+            font-weight: bold;
+            font-size: 30px;
+        }
+        .Resent {
+            border: none;
+            background: rgba(255, 255, 255, 0.5);
+            padding: 18px;
+            margin: 6px 0;
+            overflow: hidden;
+            font-size: 30px;
+        }
+        .Resent i {
+            float: right;
+            margin-left: 20px;
+            cursor: pointer;
+        }
+        .Comple .Resent {
+            background: rgb(0, 0, 0, 0.5);
+            color: #fff;
+            font-size: 30px;
+        }
+        @media all and (max-width: 850px) {
+            body {
+                padding: 20px 10px;
+                border: none;
+                border-radius: 0;
+            }
+            h1 {
+                font-size: 24px;
+                letter-spacing: 10px;
+            }
+            h3 {
+                font-size: 24px;
+            }
+            input {
+                height: 40px;
+                font-size: 24px;
+            }
+            .Resent {
+                font-size: 20px;
+                padding: 12px;
+            }
+            .Resent i {
+                margin-left: 10px;
+            }
+        }
+        @media all and (max-width: 600px) {
+            body {
+                padding: 10px 5px;
+            }
+            h1 {
+                font-size: 20px;
+                letter-spacing: 5px;
+            }
+            h3 {
+                font-size: 20px;
+            }
+            input {
+                height: 35px;
+                font-size: 20px;
+            }
+            .Resent {
+                font-size: 18px;
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>To do list</h1>
+    <div class="container" style="width: 100%;">
+        <input type="text" placeholder="Add a task">
+        <div class="NotReady">
+            <h3>Still working</h3>
+        </div>
+        <div class="Comple">
+            <h3>Completed</h3>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function(){
+            $("input").on("keyup", function(e){
+                if (e.keyCode == 13 && $("input").val() != "") {
+                    var Resent = $("<div class='Resent'></div>").text($("input").val());
+                    var del = $("<i class='fas fa-trash-alt'></i>").click(function(){
+                        var p = $(this).parent();
+                        p.fadeOut(function(){
+                            p.remove();
+                        });
+                    });
+                    var check = $("<i class='fas fa-check'></i>").click(function(){
+                        var p = $(this).parent();
+                        p.fadeOut(function(){
+                            $(".Comple").append(p);
+                            p.fadeIn();
+                        });
+                        $(this).remove();
+                    });
+                    Resent.append(del, check);
+                    $(".NotReady").append(Resent);
+                    $("input").val("");
+                }
+            });
+        });
+    </script>
+</body>
+</html>
